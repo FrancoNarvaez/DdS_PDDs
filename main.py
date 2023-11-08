@@ -1,13 +1,19 @@
-from factory import ComidaFactory
+from observer import ComidaPublisher, ComidaSubscriber
 
 def main():
-    factory = ComidaFactory()
+    comida_pub = ComidaPublisher()
 
-    comida1 = factory.create_comida("pizza")
-    comida1.preparar()
+    sub1 = ComidaSubscriber("Comensal 1")
+    sub2 = ComidaSubscriber("Comensal 2")
 
-    comida2 = factory.create_comida("hamburguesa")
-    comida2.preparar()
+    comida_pub.add_subscriber(sub1)
+    comida_pub.add_subscriber(sub2)
+
+    comida_pub.notify_subscribers("La pizza está lista")
+
+    comida_pub.remove_subscriber(sub1)
+
+    comida_pub.notify_subscribers("Las hamburguesas están en la parrilla")
 
 if __name__ == "__main__":
     main()
